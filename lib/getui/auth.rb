@@ -12,11 +12,11 @@ module Getui
       end
 
       def generate
-        timestamp = ((Time.now.to_f) * 1000).to_i
+        timestamp = DateTime.now.strftime('%Q')
         resp = Net::HTTP.post(
           "https://restapi.getui.com/v1/#{Getui.app_id}/auth_sign",
           {
-            timestamp: timestamp.to_s,
+            timestamp: timestamp,
             sign: Digest::SHA256.new.hexdigest("#{Getui.app_key}#{timestamp}#{Getui.master_secret}"),
             appkey: Getui.app_key
           }.to_json,
