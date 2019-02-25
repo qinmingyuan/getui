@@ -14,7 +14,7 @@ module Getui
           uri = URI(url)
           req = Getui::PostRequest.new(uri)
           req.body = JSON.dump(params)
-          http  = Net::HTTP.new(uri.hostname, uri.port)
+          http = Net::HTTP.new(uri.hostname, uri.port)
           http.use_ssl = (uri.scheme == "https")
           return http.request(req)
         rescue Errno::ETIMEDOUT, Net::ReadTimeout, Timeout::Error, EOFError => e
