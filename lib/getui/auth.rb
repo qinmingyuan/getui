@@ -13,18 +13,18 @@ module Getui
 
       def generate
         timestamp = ((Time.now.to_f) * 1000).to_i
-        resp = RestClient.post(
-                               "https://restapi.getui.com/v1/#{Getui.app_id}/auth_sign",
-                               JSON.dump({
-                                          timestamp: timestamp.to_s,
-                                          sign: Digest::SHA256.new.hexdigest("#{Getui.app_key}#{timestamp}#{Getui.master_secret}"),
-                                          appkey: Getui.app_key,
-                                         }),
-                               {
-                                "Content-Type" => "application/json"
-                               },
-                              )
-        res = JSON.parse(resp)
+        resp = Net::HTTP.post(
+          "https://restapi.getui.com/v1/#{Getui.app_id}/auth_sign",
+          {
+            timestamp: timestamp.to_s,
+            sign: Digest::SHA256.new.hexdigest("#{Getui.app_key}#{timestamp}#{Getui.master_secret}"),
+            appkey: Getui.app_key
+          }.to_json,
+          {
+            "Content-Type" => "application/json"
+          }
+        )
+        res = JSON.parse(resp.body)
         raise Getui::GenerateAuthTokenError.new(resp.body) unless res["result"] == "ok"
         res["auth_token"]
       end
