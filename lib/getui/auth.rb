@@ -14,7 +14,7 @@ module Getui
       def generate
         timestamp = DateTime.now.strftime('%Q')
         resp = Net::HTTP.post(
-          "https://restapi.getui.com/v1/#{Getui.app_id}/auth_sign",
+          URI("https://restapi.getui.com/v1/#{Getui.app_id}/auth_sign"),
           {
             timestamp: timestamp,
             sign: Digest::SHA256.new.hexdigest("#{Getui.app_key}#{timestamp}#{Getui.master_secret}"),
