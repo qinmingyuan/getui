@@ -2,7 +2,7 @@ module Getui
   class Apns
     attr_accessor :auto_badge, :body, :payload, :title
 
-    def initialize(body, title: '', payload: '')
+    def initialize(body, title: '', payload: {})
       @body = body
       @title = title
       @auto_badge = '+1'
