@@ -29,7 +29,7 @@ module Getui
     def self.get(url, params = {})
       uri = URI(url)
       req = Getui::GetRequest.new(uri)
-      http  = Net::HTTP.new(uri.hostname, uri.port)
+      http = Net::HTTP.new(uri.hostname, uri.port)
       http.use_ssl = (uri.scheme == 'https')
 
       MAX_TRY.times do |current_try|
