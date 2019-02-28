@@ -1,7 +1,7 @@
 module Getui
   class Message
     class Transmission < Getui::Message
-      attr_writer :apns
+      attr_writer :transmission_type, :transmission_content, :apns
 
       def initialize(transmission_content, is_offline: true, offline_expire_time: 7 * 60 * 60 * 24, push_network_type: 0, **options)
         super('transmission', is_offline: is_offline, offline_expire_time: offline_expire_time, push_network_type: push_network_type)
