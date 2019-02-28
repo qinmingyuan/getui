@@ -1,7 +1,7 @@
 require 'active_support/cache'
 require 'json'
 require 'rest-client'
-require "getui/version"
+require 'getui/version'
 require 'getui/errors'
 require 'getui/auth'
 require 'getui/message'
@@ -20,7 +20,7 @@ module Getui
     json[:requestid] = SecureRandom.uuid[0..29]
     resp = Getui::Request.post("https://restapi.getui.com/v1/#{Getui.app_id}/push_single", json)
     res = JSON.parse(resp.body)
-    raise Getui::PushError.new("#{resp.body}") unless res["result"] == "ok"
+    raise Getui::PushError.new("#{resp.body}") unless res['result'] == 'ok'
     res
   end
 
@@ -28,7 +28,7 @@ module Getui
     json = message.as_json
     resp = Getui::Request.post("https://restapi.getui.com/v1/#{Getui.app_id}/save_list_body", json)
     res = JSON.parse(resp.body)
-    raise Getui::PushError.new("#{resp.body}") unless res["result"] == "ok"
+    raise Getui::PushError.new("#{resp.body}") unless res['result'] == 'ok'
     res['taskid']
   end
 
@@ -36,7 +36,7 @@ module Getui
     json = {cid: cids, taskid: taskid, need_detail: need_detail}
     resp = Getui::Request.post("https://restapi.getui.com/v1/#{Getui.app_id}/push_list", json)
     res = JSON.parse(resp.body)
-    raise Getui::PushError.new("#{resp.body}") unless res["result"] == "ok"
+    raise Getui::PushError.new("#{resp.body}") unless res['result'] == 'ok'
     res
   end
 
@@ -45,7 +45,7 @@ module Getui
     json[:requestid] = SecureRandom.uuid[0..29]
     resp = Getui::Request.post("https://restapi.getui.com/v1/#{Getui.app_id}/push_app", json)
     res = JSON.parse(resp.body)
-    raise Getui::PushError.new("#{resp.body}") unless res["result"] == "ok"
+    raise Getui::PushError.new("#{resp.body}") unless res['result'] == 'ok'
     res
   end
 

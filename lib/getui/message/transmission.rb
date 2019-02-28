@@ -1,10 +1,10 @@
 module Getui
   class Message
     class Transmission < Getui::Message
-      attr_accessor :transmission_type, :transmission_content, :apns
+      attr_writer :apns
 
       def initialize(transmission_content, is_offline: true, offline_expire_time: 7 * 60 * 60 * 24, push_network_type: 0, **options)
-        super("transmission", is_offline: is_offline, offline_expire_time: offline_expire_time, push_network_type: push_network_type)
+        super('transmission', is_offline: is_offline, offline_expire_time: offline_expire_time, push_network_type: push_network_type)
         @transmission_type = false
         @transmission_content = transmission_content
         @apns = options[:apns]
@@ -15,11 +15,11 @@ module Getui
         json = {
           message: message_json,
           transmission: {
-            transmission_type: self.transmission_type,
-            transmission_content: self.transmission_content,
+            transmission_type: @transmission_type,
+            transmission_content: @transmission_content,
           },
         }
-        json[:push_info] = self.apns.as_json if self.apns
+        json[:push_info] = @apns.as_json if @apns
         json
       end
     end
